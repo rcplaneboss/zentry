@@ -1,13 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "./Button";
-import { TiLocationArrow } from "react-icons/ti";
+import { TiLocationArrow, TiVolumeUp, TiVolumeMute } from "react-icons/ti";
 import clsx from "clsx";
 import { useWindowScroll } from "react-use";
-import gsap from "gsap"
+import gsap from "gsap";
+import { FaTimes } from "react-icons/fa";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
 
 const Navbar = () => {
+  const [isWantMusic, setIsWantMusic] = useState(false);
+  const [isSpeechBoxVisible, setIsSpeechBoxVisible] = useState(true);
+
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
 
@@ -17,42 +21,52 @@ const Navbar = () => {
   const navContainerRef = useRef(null);
   const audioElementRef = useRef(null);
 
-    const { y: currentScrollY } = useWindowScroll();
-    
-    useEffect(() => {
-        if (currentScrollY === 0) {
-            setIsNavVisible(true);
-            navContainerRef.current.classList.remove("floating-nav");
-        } else if (currentScrollY > lastScrollY) {
-            setIsNavVisible(false);
-            navContainerRef.current.classList.add("floating-nav");
-        } else if (currentScrollY < lastScrollY) {
-            setIsNavVisible(true);
-            navContainerRef.current.classList.add("floating-nav");
-        } 
+  const { y: currentScrollY } = useWindowScroll();
 
-        setLastScrollY(currentScrollY);
-        
-    }, [currentScrollY]);
-    
-    useEffect(() => {
-        gsap.to(navContainerRef.current, {
-            y: isNavVisible ? 0 : -100,
-            opacity: isNavVisible ? 1 : 0,
-            duration: 0.5,
-            ease: "power2.inOut"
-        });
-    }, [isNavVisible]);
+  useEffect(() => {
+    if (currentScrollY === 0) {
+      setIsNavVisible(true);
+      navContainerRef.current.classList.remove("floating-nav");
+    } else if (currentScrollY > lastScrollY) {
+      setIsNavVisible(false);
+      navContainerRef.current.classList.add("floating-nav");
+    } else if (currentScrollY < lastScrollY) {
+      setIsNavVisible(true);
+      navContainerRef.current.classList.add("floating-nav");
+    }
 
-  const toggleAudioIndicator = () => {
-    setIsAudioPlaying(prev => !prev);
+    setLastScrollY(currentScrollY);
+  }, [currentScrollY]);
 
-    setIsIndicatorActive(prev => !prev);
+  useEffect(() => {
+    gsap.to(navContainerRef.current, {
+      y: isNavVisible ? 0 : -100,
+      opacity: isNavVisible ? 1 : 0,
+      duration: 0.5,
+      ease: "power2.inOut",
+    });
+  }, [isNavVisible]);
+
+  const toggleAudioIndicator = (event) => {
+    event.stopPropagation();
+
+    setIsAudioPlaying((prev) => !prev);
+
+    setIsIndicatorActive((prev) => !prev);
+
+    setIsSpeechBoxVisible(false);
+  };
+
+  const hideSpeechBox = (e) => {
+    e.stopPropagation();
+    setIsSpeechBoxVisible(false);
   };
 
   useEffect(() => {
     if (isAudioPlaying) {
       audioElementRef.current.play();
+    } else {
+      audioElementRef.current.pause();
     }
   });
 
@@ -86,9 +100,36 @@ const Navbar = () => {
               ))}
             </div>
             <button
-              className="ml-10 flex  items-center space-x-0.5"
+              className="ml-10 flex  items-center space-x-0.5 relative"
               onClick={toggleAudioIndicator}
             >
+              {isSpeechBoxVisible && (
+                <div
+                  className="px-4 py-2 pb-4 w-36 bg-blue-100 rounded-md absolute top-6 -left-24  max-md:hidden cursor-default  after:border-8 after:border-blue-50  after:right-8 after:absolute after:-top-4 after:border-t-transparent after:border-l-transparent after:border-r-transparent"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <p className="text-black text-xs uppercase flex items-center justify-between">
+                    <div>Allow music?</div>
+                    <div onClick={hideSpeechBox} className="cursor-pointer">
+                      <FaTimes />
+                    </div>
+                  </p>
+                  <div className="flex items-center justify-between w-16 mx-auto pt-1 ">
+                    <button
+                      className="text-black cursor-pointer hover:text-zinc-400"
+                      onClick={(e) => toggleAudioIndicator(e)}
+                    >
+                      <TiVolumeUp />
+                    </button>
+                    <button
+                      className="text-black cursor-pointer hover:text-zinc-400"
+                      onClick={(e) => hideSpeechBox(e)}
+                    >
+                      <TiVolumeMute />
+                    </button>
+                  </div>
+                </div>
+              )}
               <audio
                 ref={audioElementRef}
                 className="hidden"
