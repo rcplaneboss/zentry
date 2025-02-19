@@ -13,7 +13,7 @@ function Hero() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
-  const totalVideos = 4;
+  const totalVideos = 3;
 
   const upcomingVideo = (currentIndex % totalVideos) + 1;
 
@@ -28,7 +28,7 @@ function Hero() {
   const getVideoSrc = (index) => `/public/videos/hero-${index}.mp4`;
 
   const handleVideoLoad = () => {
-    setLoadedVideos((prev) => prev + 1);
+    setLoadedVideos(loadedVideos + 1);
   };
 
   useEffect(() => {
