@@ -73,7 +73,7 @@ const Navbar = () => {
   return (
     <div
       ref={navContainerRef}
-      className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-500  sm:inset-x-6"
+      className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-500  sm:inset-x-6 max-md:w-11/12 max-md:mx-auto"
     >
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
@@ -105,16 +105,16 @@ const Navbar = () => {
             >
               {isSpeechBoxVisible && (
                 <div
-                  className="px-4 py-2 pb-4 w-36 bg-blue-100 rounded-md absolute top-6 -left-24  max-md:hidden cursor-default  after:border-8 after:border-blue-50  after:right-8 after:absolute after:-top-4 after:border-t-transparent after:border-l-transparent after:border-r-transparent"
+                  className="px-4 py-2 pb-4 w-36 bg-blue-100 rounded-md absolute top-6 -left-24  max-md:hidden cursor-default speech-box_after"
                   onClick={(e) => e.stopPropagation()}
                 >
                   <p className="text-black text-xs uppercase flex items-center justify-between">
-                    <div>Allow music?</div>
+                    <p className='font-general'>Allow music?</p>
                     <div onClick={hideSpeechBox} className="cursor-pointer">
                       <FaTimes />
                     </div>
                   </p>
-                  <div className="flex items-center justify-between w-16 mx-auto pt-1 ">
+                  <div className="flex items-center justify-between  mx-auto pt-1 w-3/4">
                     <button
                       className="text-black cursor-pointer hover:text-zinc-400"
                       onClick={(e) => toggleAudioIndicator(e)}

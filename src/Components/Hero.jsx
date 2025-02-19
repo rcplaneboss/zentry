@@ -114,7 +114,7 @@ function Hero() {
                 loop
                 muted
                 id="current-video"
-                className="size-64 origin-center scale-150 object-center object-cover"
+                className="size-64 origin-center scale-150 object-center object-cover z-50"
                 onLoadedData={handleVideoLoad}
               />
             </div>
@@ -136,6 +136,7 @@ function Hero() {
             loop
             muted
             className="absolute-center absolute left-0 top-0 size-full object-cover object-center"
+            onLoadedData={handleVideoLoad}
           />
         </div>
         <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
