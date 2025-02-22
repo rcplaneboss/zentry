@@ -1,4 +1,3 @@
-import React from "react";
 import Button from "./Button"
 
 const ImgClipBox = ({ src, clipClass }) => (
@@ -37,10 +36,10 @@ const Contact = () => {
               <div className="flex flex-col items-center text-center">
                 <p className="font-general text-[10px]  uppercase">Join zentry</p>
 
-                <p className="special-font mt-10 w-full font-zentry text-5xl leading-[.9] md:text-[6rem]">Let's b<b>u</b>ild the<br/> new era of g<b>a</b>ming <br/>t<b>o</b>gether</p>
+                <p className="special-font mt-10 w-full font-zentry text-5xl leading-[.9] md:text-[6rem]">Let's b<b>u</b>ild the <br/> new era of g<b>a</b>ming <br/> t<b>o</b>gether</p>
 
 
-                  <Button title="Contact Us" containerClass='mt-10 cursor-pointer'/>
+                  <Button title="Contact Us" containerClass='mt-10 cursor-pointer' />
               </div>
       </div>
     </div>
