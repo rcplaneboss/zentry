@@ -67,6 +67,24 @@ function Hero() {
     { dependencies: [currentIndex], revertOnUpdate: true }
   );
 
+  useGSAP(()=>{
+    // if (!hasClicked) {
+    // gsap.set("#current-video",{
+    //   scale: 50
+    // })
+
+      gsap.from('#current-video', {
+        // transformOrigin: "center center",
+        scale: 2,
+        duration: 1,
+        ease: "power1.easeInOut",
+        repeat: -1,
+        repeatDelay: .5,
+        yoyo: true
+      })
+    // }
+  })
+
   useGSAP(() => {
     gsap.set("#video-frame", {
       clipPath: "polygon(14% 0%, 72% 0%, 90% 90%, 0% 100%)",
@@ -103,18 +121,18 @@ function Hero() {
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
+          <div className="mask-clip-path absolute-center absolute z-50 size-28 cursor-pointer overflow-hidden rounded-lg flex justify-center items-center">
             <div
               onClick={handleMiniVdClick}
-              className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
+              className="origin-center scale-50 opacity-100 transition-all duration-500 ease-in hover:scale-100 box"
             >
               <video
-                src={getVideoSrc(currentIndex + 1)}
+                src={getVideoSrc(upcomingVideo)}
                 ref={nextVideoRef}
                 loop
                 muted
                 id="current-video"
-                className="size-64 origin-center scale-150 object-center object-cover z-50"
+                className="size-28 origin-center scale-150 object-center object-cover z-50"
                 onLoadedData={handleVideoLoad}
               />
             </div>
