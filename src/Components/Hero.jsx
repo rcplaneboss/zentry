@@ -13,7 +13,7 @@ function Hero() {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
-  const totalVideos = 3;
+  const totalVideos = 4;
 
   const upcomingVideo = (currentIndex % totalVideos) + 1;
 
@@ -68,11 +68,7 @@ function Hero() {
   );
 
   useGSAP(()=>{
-    // if (!hasClicked) {
-    // gsap.set("#current-video",{
-    //   scale: 50
-    // })
-
+   
       gsap.from('#current-video', {
         // transformOrigin: "center center",
         scale: 2,
@@ -82,7 +78,7 @@ function Hero() {
         repeatDelay: .5,
         yoyo: true
       })
-    // }
+   
   })
 
   useGSAP(() => {
